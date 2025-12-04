@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Numerics;
 
 Stopwatch sw = Stopwatch.StartNew();
-Day3();
+Day2();
 
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
@@ -11,14 +12,14 @@ void Day3()
 {
     var banks = ReadInputOfDay(3);
 
-    var count = 0;
+    var count1 = 0;
     foreach (var bank in banks)
     {
         var first = bank.Take(bank.Length - 1).Max();
         var index = bank.IndexOf(first);
         var remainder = bank.Skip(index + 1);
         var second = remainder.Max();
-        count += (first- '0') * 10 + (second - '0');
+        count1 += (first - '0') * 10 + (second - '0');
     }
 
     BigInteger count2 = 0;
@@ -39,17 +40,39 @@ void Day3()
         count2 += BigInteger.Parse(new String(joltage.ToArray()));
     }
 
-    Console.WriteLine($"Day 1: part 1 = {count}");
+    Console.WriteLine($"Day 1: part 1 = {count1}");
     Console.WriteLine($"Day 1: part 2 = {count2}");
 }
 
 void Day2()
 {
-    var line = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
-    //var line = ReadInputOfDay(2);
+    //var line = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
+    var line = ReadInputOfDay(2).First();
 
     var ranges = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
+    long count1 = 0;
+    foreach (var range in ranges)
+    {
+        var ids = (range.Split('-', StringSplitOptions.RemoveEmptyEntries)).Select(s => long.Parse(s)).ToList();
+        for (var i = ids[0]; i < ids[1]; i++)
+        {
+            var id = i.ToString();
+            var middle = id.Length / 2;
+            var part1 = id.Take(middle);
+            var part2 = id.Skip(middle);
+            if (part1.SequenceEqual(part2))
+            {
+                Console.WriteLine($"Found part1: {id}");
+                count1 += long.Parse(id);
+            }
+        }
+    }
+
+    var count2 = 0;
+
+    Console.WriteLine($"Day 1: part 1 = {count1}");
+    Console.WriteLine($"Day 1: part 2 = {count2}");
 }
 
 void Day1()
