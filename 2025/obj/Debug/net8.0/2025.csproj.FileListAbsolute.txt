@@ -1,0 +1,17 @@
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day1.txt
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\2025.exe
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\2025.deps.json
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\2025.runtimeconfig.json
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\2025.dll
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\2025.pdb
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.AssemblyInfoInputs.cache
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.AssemblyInfo.cs
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.csproj.CoreCompileInputs.cache
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.dll
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\refint\2025.dll
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.pdb
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.genruntimeconfig.cache
+C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\ref\2025.dll
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day2.txt
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day3.txt
