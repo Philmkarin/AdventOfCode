@@ -25,25 +25,18 @@ void Day3()
     foreach (var bank in banks)
     {
         var joltage = new List<char>();
-        var rem = bank;
+        var rem = bank.ToList();
         for (int i = 12; i > 0; i--)
         {
-            var first = rem.Take(rem.Length - i).Max();
+            var first = rem.Take(rem.Count + 1 - i).Max();
             var index = rem.IndexOf(first);
-            rem = rem.Substring(index + 1);
+            rem = rem.Skip(index + 1).ToList();
 
             joltage.Add(first);
         }
 
-        count2 = 0;
-        for (int i = 0; i < joltage.Count; i++)
-        {
-            BigInteger potence = Math.Pow(10, (12 - i));
-            var multiplier = (joltage[i] - '0');
-            BigInteger internalcount = (int)potence * multiplier;
-            Console.WriteLine(internalcount);
-            count2 += (int)potence * multiplier;
-        }
+        Console.WriteLine(new String(joltage.ToArray()));
+        count2 += BigInteger.Parse(new String(joltage.ToArray()));
     }
 
     Console.WriteLine($"Day 1: part 1 = {count}");
@@ -56,25 +49,7 @@ void Day2()
     //var line = ReadInputOfDay(2);
 
     var ranges = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
-    var ids = ranges.SelectMany(r => r.Split('-', StringSplitOptions.RemoveEmptyEntries));
-    foreach (var id in ids)
-    {
-        var i = 1;
-        var first = id.Substring(0, i);
-        var rest = id.Substring(i);
-        var next = rest.Substring(0, i);
-        var count = 0;
-        while (first == next)
-        {
-            first = next;
-            next = next.Substring(i);
-            if (!next.Any())
-            {
-                count+= int.Parse(id);
-                break;
-            }
-        }
-    }
+
 }
 
 void Day1()
