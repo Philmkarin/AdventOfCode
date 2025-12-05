@@ -1,12 +1,73 @@
 ﻿using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Numerics;
 
 Stopwatch sw = Stopwatch.StartNew();
-Day2();
+Day4();
 
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
+
+void Day4()
+{
+    var rollLines = ReadInputOfDay(4).ToList();
+    var emptyCords = new List<(int x, int y)>();
+    var rollCords = new List<(int x, int y)>();
+    var xMax = rollLines.Count;
+    var yMax = rollLines[0].Length;
+
+    //lägg alla punkter i lista 
+    //gå igenom listan och spara de som har färre än 4 grannar
+    for (int x = 0; x < xMax; x++)
+    {
+        for (int y = 0; y < yMax; y++)
+        {
+            if (rollLines[x][y] == '.')
+            {
+                emptyCords.Add((x, y));
+            }
+            else if (rollLines[x][y] == '@')
+            {
+                rollCords.Add((x, y));
+            }
+        }
+    }
+
+    var count1 = 0;
+    foreach (var rollCord in rollCords)
+    {
+        var neighbours = GetNeighbours(rollCord);
+
+        if (neighbours.Intersect(rollCords).Count() < 4)
+        {
+            count1++;
+        }
+    }
+
+    List<(int x, int y)> GetNeighbours((int x, int y) cord)
+    {
+        var neighbours = new List<(int x, int y)> 
+        {
+            (cord.x - 1, cord.y),
+            (cord.x + 1, cord.y),
+
+            (cord.x - 1, cord.y - 1),
+            (cord.x, cord.y - 1),
+            (cord.x + 1, cord.y - 1),
+
+            (cord.x - 1, cord.y + 1),
+            (cord.x, cord.y + 1),
+            (cord.x + 1, cord.y + 1)
+        };
+
+        return neighbours.ToList();
+    }
+
+    var count2 = 0;
+    Console.WriteLine($"Day 1: part 1 = {count1}");
+    Console.WriteLine($"Day 1: part 2 = {count2}");
+}
+
+
 
 void Day3()
 {
