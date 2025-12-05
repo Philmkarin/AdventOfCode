@@ -7,25 +7,24 @@ Day4();
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
 
+void Day5()
+{
+    var lines = ReadInputOfDay(5).ToList();
+
+}
+
 void Day4()
 {
     var rollLines = ReadInputOfDay(4).ToList();
-    var emptyCords = new List<(int x, int y)>();
     var rollCords = new List<(int x, int y)>();
     var xMax = rollLines.Count;
     var yMax = rollLines[0].Length;
 
-    //lägg alla punkter i lista 
-    //gå igenom listan och spara de som har färre än 4 grannar
     for (int x = 0; x < xMax; x++)
     {
         for (int y = 0; y < yMax; y++)
         {
-            if (rollLines[x][y] == '.')
-            {
-                emptyCords.Add((x, y));
-            }
-            else if (rollLines[x][y] == '@')
+            if (rollLines[x][y] == '@')
             {
                 rollCords.Add((x, y));
             }
@@ -45,7 +44,7 @@ void Day4()
 
     List<(int x, int y)> GetNeighbours((int x, int y) cord)
     {
-        var neighbours = new List<(int x, int y)> 
+        var neighbours = new List<(int x, int y)>
         {
             (cord.x - 1, cord.y),
             (cord.x + 1, cord.y),
@@ -63,11 +62,28 @@ void Day4()
     }
 
     var count2 = 0;
+    bool somethingChanged = true;
+    var copy = rollCords.ToList();
+    while (somethingChanged)
+    {
+        somethingChanged = false;
+        foreach (var rollCord in rollCords)
+        {
+            var neighbours = GetNeighbours(rollCord);
+
+            if (neighbours.Intersect(rollCords).Count() < 4)
+            {
+                copy.Remove(rollCord);
+                somethingChanged = true;
+                count2++;
+            }
+        }
+        rollCords = copy.ToList();
+    }
+
     Console.WriteLine($"Day 1: part 1 = {count1}");
     Console.WriteLine($"Day 1: part 2 = {count2}");
 }
-
-
 
 void Day3()
 {
