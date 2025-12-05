@@ -46,7 +46,6 @@ void Day3()
 
 void Day2()
 {
-    //var line = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
     var line = ReadInputOfDay(2).First();
 
     var ranges = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
@@ -69,7 +68,37 @@ void Day2()
         }
     }
 
-    var count2 = 0;
+    long count2 = 0;
+    foreach (var range in ranges)
+    {
+        var ids = (range.Split('-', StringSplitOptions.RemoveEmptyEntries)).Select(s => long.Parse(s)).ToList();
+        for (var i = ids[0]; i <= ids[1]; i++)
+        {
+            var divs = 2;
+            var id = i.ToString();
+
+            while (id.Length >= divs)
+            {
+                if (id.Length % divs == 0)
+                {
+                    var parts = new List<string>();
+                    var divLength = id.Length / divs;
+                    while (parts.Count < divs)
+                    {
+                        var part = id.Skip(parts.Count * divLength).Take(divLength);
+                        parts.Add(new String(part.ToArray()));
+                    }
+                    if (parts.Distinct().Count() == 1)
+                    {
+                        Console.WriteLine($"Found part2: {id}");
+                        count2 += long.Parse(id);
+                        break;
+                    }
+                }
+                divs++;
+            }
+        }
+    }
 
     Console.WriteLine($"Day 1: part 1 = {count1}");
     Console.WriteLine($"Day 1: part 2 = {count2}");
