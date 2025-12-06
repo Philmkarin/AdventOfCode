@@ -1,18 +1,58 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Numerics;
 
 Stopwatch sw = Stopwatch.StartNew();
-Day4();
+Day5();
 
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
 
+//--- Day 5: Cafeteria ---
 void Day5()
 {
     var lines = ReadInputOfDay(5).ToList();
 
+    var freshIds = new HashSet<BigInteger>();
+    var freshRanges = new List<(BigInteger, BigInteger)>();
+    var ingredients = new HashSet<BigInteger>();
+
+    var i = 0;
+    for (; i < lines.Count; i++)
+    {
+        var idRange = lines[i];
+        if (string.IsNullOrWhiteSpace(idRange))
+            continue;
+        if (!idRange.Contains('-'))
+        {
+            ingredients.Add(BigInteger.Parse(idRange));
+            continue;
+        }
+        var ids = idRange.Split('-', StringSplitOptions.RemoveEmptyEntries).Select(s => BigInteger.Parse(s)).ToList();
+        freshRanges.Add((ids[0], ids[1]));
+    }
+
+    foreach (var ingredient in ingredients)
+    {
+        foreach (var range in freshRanges)
+        {
+            if (ingredient >= range.Item1 && ingredient <= range.Item2)
+            {
+                freshIds.Add(ingredient);
+                break;
+            }
+        }
+    }
+
+    var count1 = freshIds.Count();
+    var count2 = 0;
+
+    Console.WriteLine($"Day 1: part 1 = {count1}");
+    Console.WriteLine($"Day 1: part 2 = {count2}");
+
 }
 
+//--- Day 4: Printing Department ---
 void Day4()
 {
     var rollLines = ReadInputOfDay(4).ToList();
@@ -85,6 +125,7 @@ void Day4()
     Console.WriteLine($"Day 1: part 2 = {count2}");
 }
 
+//--- Day 3: Lobby ---
 void Day3()
 {
     var banks = ReadInputOfDay(3);
@@ -121,6 +162,7 @@ void Day3()
     Console.WriteLine($"Day 1: part 2 = {count2}");
 }
 
+//--- Day 2: Gift Shop ---
 void Day2()
 {
     var line = ReadInputOfDay(2).First();
@@ -181,6 +223,7 @@ void Day2()
     Console.WriteLine($"Day 1: part 2 = {count2}");
 }
 
+//--- Day 1: Secret Entrance ---
 void Day1()
 {
     var lines = ReadInputOfDay(1);
