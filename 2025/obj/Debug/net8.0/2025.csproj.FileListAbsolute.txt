@@ -18,3 +18,4 @@ C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day3.txt
 C:\Users\karin\source\repos\AdventOfCode\2025\obj\Debug\net8.0\2025.sourcelink.json
 C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day4.txt
 C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day5.txt
+C:\Users\karin\source\repos\AdventOfCode\2025\bin\Debug\net8.0\Inputs\Day6.txt

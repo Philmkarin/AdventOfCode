@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Numerics;
 
 Stopwatch sw = Stopwatch.StartNew();
@@ -7,6 +6,51 @@ Day5();
 
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
+
+void Day7()
+{
+    var lines = ReadInputOfDay(7).ToList();
+
+}
+
+//--- Day 6: Trash Compactor ---
+void Day6()
+{
+    var lines = ReadInputOfDay(6).ToList();
+
+    var operations = lines.Last().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    var products = lines.First().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s)).ToList();
+    for (int i = 1; i < lines.Count - 1; i++)
+    {
+        var numbers = lines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(s => long.Parse(s)).ToList();
+        for (int j = 0; j < numbers.Count; j++)
+        {
+            products[j] = operations[j] == "+" ? products[j] += numbers[j] : products[j] *= numbers[j];
+
+            //4 + 431 + 623 = 1058 = 400 + 600 + 3+ + 20 + 4 + 1+ 3
+            //175 * 581 * 32 = 3253600 = ?
+        }
+    }
+
+    var lines2 = (from line in lines.Take(lines.Count - 2)
+                  let numbers = line.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList()
+                  select numbers).ToList();
+    var index = 0;
+    //foreach (var line in lines2)
+    //{
+    //    for (int i = 0; i >; i++)
+    //    {
+
+    //    }
+    //}
+
+    var count1 = products.Sum();
+
+    var count2 = 0;
+
+    Console.WriteLine($"Day 1: part 1 = {count1}");
+    Console.WriteLine($"Day 1: part 2 = {count2}");
+}
 
 //--- Day 5: Cafeteria ---
 void Day5()
@@ -16,9 +60,9 @@ void Day5()
     var freshIds = new HashSet<BigInteger>();
     var freshRanges = new List<(BigInteger, BigInteger)>();
     var ingredients = new HashSet<BigInteger>();
+    var ranges = new List<(BigInteger, BigInteger)>();
 
-    var i = 0;
-    for (; i < lines.Count; i++)
+    for (var i = 0; i < lines.Count; i++)
     {
         var idRange = lines[i];
         if (string.IsNullOrWhiteSpace(idRange))
@@ -45,7 +89,44 @@ void Day5()
     }
 
     var count1 = freshIds.Count();
-    var count2 = 0;
+
+    for (int i = 0; i < freshRanges.Count; i++)
+    {
+        var thisRange = freshRanges[i];
+        for (int j = i + 1; j < freshRanges.Count; j++)
+        {
+            var nextRange = freshRanges[j];
+
+            var isStartInside = nextRange.Item1 >= thisRange.Item1 && nextRange.Item1 <= thisRange.Item2;
+            var isEndInside = nextRange.Item2 >= thisRange.Item1 && nextRange.Item2 <= thisRange.Item2;
+
+            if (isStartInside && isEndInside)
+            {
+                freshRanges.RemoveAt(j);
+                i = 0;
+            }
+            if (isStartInside && !isEndInside)
+            {
+                //new end
+                freshRanges[i] = new(thisRange.Item1, nextRange.Item2);
+                freshRanges.RemoveAt(j);
+                i = 0;
+            }
+            if (!isStartInside && isEndInside)
+            {
+                //new start
+                freshRanges[i] = new(nextRange.Item1, thisRange.Item2);
+                freshRanges.RemoveAt(j);
+                i = 0;
+            }
+            if (!isStartInside && !isEndInside)
+            {
+                //go to next range
+            }
+        }
+    }
+
+    var count2 = freshRanges.Select(f => f.Item2 - f.Item1 + 1).Aggregate(BigInteger.Add);
 
     Console.WriteLine($"Day 1: part 1 = {count1}");
     Console.WriteLine($"Day 1: part 2 = {count2}");
