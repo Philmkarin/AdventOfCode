@@ -7,9 +7,14 @@ Day5();
 sw.Stop();
 Console.WriteLine($"TimeElapsed: {sw.ElapsedMilliseconds}ms");
 
+//---Day 7: Laboratories-- -
 void Day7()
 {
     var lines = ReadInputOfDay(7).ToList();
+
+    var beams = new List<(int, int)> { (0,lines[0].IndexOf('S')) };
+
+
 
 }
 
@@ -90,6 +95,7 @@ void Day5()
 
     var count1 = freshIds.Count();
 
+    freshRanges = freshRanges.OrderBy(s => s.Item1).ToList();
     for (int i = 0; i < freshRanges.Count; i++)
     {
         var thisRange = freshRanges[i];
@@ -104,6 +110,7 @@ void Day5()
             {
                 freshRanges.RemoveAt(j);
                 i = 0;
+                break;
             }
             if (isStartInside && !isEndInside)
             {
@@ -111,6 +118,7 @@ void Day5()
                 freshRanges[i] = new(thisRange.Item1, nextRange.Item2);
                 freshRanges.RemoveAt(j);
                 i = 0;
+                break;
             }
             if (!isStartInside && isEndInside)
             {
@@ -118,6 +126,7 @@ void Day5()
                 freshRanges[i] = new(nextRange.Item1, thisRange.Item2);
                 freshRanges.RemoveAt(j);
                 i = 0;
+                break;
             }
             if (!isStartInside && !isEndInside)
             {
