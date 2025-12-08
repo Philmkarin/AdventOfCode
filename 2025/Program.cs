@@ -105,33 +105,24 @@ void Day5()
 
             var isStartInside = nextRange.Item1 >= thisRange.Item1 && nextRange.Item1 <= thisRange.Item2;
             var isEndInside = nextRange.Item2 >= thisRange.Item1 && nextRange.Item2 <= thisRange.Item2;
-
-            if (isStartInside && isEndInside)
+            if (!isStartInside && !isEndInside)
             {
-                freshRanges.RemoveAt(j);
-                i = 0;
-                break;
+                //go to next range
+                continue;
             }
             if (isStartInside && !isEndInside)
             {
                 //new end
                 freshRanges[i] = new(thisRange.Item1, nextRange.Item2);
-                freshRanges.RemoveAt(j);
-                i = 0;
-                break;
             }
             if (!isStartInside && isEndInside)
             {
                 //new start
                 freshRanges[i] = new(nextRange.Item1, thisRange.Item2);
-                freshRanges.RemoveAt(j);
-                i = 0;
-                break;
             }
-            if (!isStartInside && !isEndInside)
-            {
-                //go to next range
-            }
+            freshRanges.RemoveAt(j);
+            i = 0;
+            break;
         }
     }
 
